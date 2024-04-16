@@ -396,6 +396,7 @@ a:focus {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  flex-direction: column;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;

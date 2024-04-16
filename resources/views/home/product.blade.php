@@ -1,43 +1,45 @@
 <section class="product_section">
-         <div class="container">
-            <div class="heading_container heading_center">
-               <h2>
-                  Our <span>products</span>
-               </h2>
-            </div>
-            <div class="row">
-                @foreach($product as $product)
-               <div class="col-sm-6 col-md-4 col-lg-4">
-                  <div class="box">
-                     <div class="option_container">
-                        <div class="options">
-                           <a href="" class="option1">
-                           Add To Cart
-                           </a>
-                           <a href="" class="option2">
-                           Buy Now
-                           </a>
-                        </div>
-                     </div>
-                     <div class="img-box">
-                        <img src="images/p1.png" alt="">
-                     </div>
-                     <div class="detail-box">
+    <div class="container">
+        <div class="heading_container heading_center">
+            <h2>
+                Our <span>products</span>
+            </h2>
+        </div>
+        <div class="row">
+            @foreach($product as $products)
+            <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="box">
+                    <div class="option_container">
+                        <form class="options" action="{{url('add_cart',$products->product_id)}}" method="POST">
+                            <input type="submit" value="Add To Cart" class="option1">
+                        </form>
+                    </div>
+                    <div class="img-box">
+                        <img src="{{$products->image}}" alt="">
+                    </div>
+                    <div class="detail-box">
                         <h5>
-                           Men's Shirt
+                            {{$products->product_name}}
                         </h5>
                         <h6>
-                           $75
+                            ${{$products->unit_price}}/{{$products->unit_quantity}}
                         </h6>
-                     </div>
-                  </div>
-               </div>
-                @endforeach
+                        @if($products->in_stock>0)
+                        <h6>
+                            In stock: {{$products->in_stock}}
+                        </h6>
+                        @else
+                        <h6 style="color:red">
+                            Out of Stock
+                        </h6>
+                        @endif
+                    </div>
+                </div>
             </div>
-            <div class="btn-box">
-               <a href="">
-               View All products
-               </a>
-            </div>
-         </div>
-      </section>
+            @endforeach
+            <span class="pt-2">
+                {!!$product->withQueryString()->links('pagination::bootstrap-5')!!}
+            </span>
+        </div>
+    </div>
+</section>

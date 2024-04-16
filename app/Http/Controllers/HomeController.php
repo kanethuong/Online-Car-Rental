@@ -10,7 +10,12 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $product=Product::all();
+        $product=Product::paginate(6);
         return view('home.userpage',compact('product'));
+    }
+
+    public function add_cart($product_id)
+    {
+
     }
 }
