@@ -8,11 +8,13 @@
         <div class="row">
             @foreach($product as $products)
             <div class="col-sm-6 col-md-4 col-lg-4">
-                <div class="box">
+                <div class="box product_data">
                     <div class="option_container">
-                        <form class="options" action="{{url('add_cart',$products->product_id)}}" method="POST">
-                            <input type="submit" value="Add To Cart" class="option1">
-                        </form>
+                        <div class="options">
+                            <input type="number" class="qty-input" value="1" min="1" max="{{$products->in_stock}}">
+                            <input type="submit" value="Add To Cart" class="option1 add-to-cart-btn">
+                            <input type="hidden" class="product_id" value="{{$products->product_id}}">
+                        </div>
                     </div>
                     <div class="img-box">
                         <img src="{{$products->image}}" alt="">
