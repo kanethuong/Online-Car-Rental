@@ -8,16 +8,17 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\SubCategory;
 
-class HomeController extends Controller
+class SubCategoryController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $product = Product::paginate(6);
+        $product = Product::where('sub_category_id', $id)->paginate(6);
+        $subCategoryName = SubCategory::where('sub_category_id', $id)->first()->sub_category_name;
         $categories = Category::all();
         $catSubcatMap = [];
         foreach ($categories as $category) {
             $catSubcatMap[$category->category_id] = $category->subcategories;
         }
-        return view('home.userpage', compact('product', 'categories', 'catSubcatMap'));
+        return view('home.sub_category', compact('product', 'subCategoryName', 'categories', 'catSubcatMap'));
     }
 }

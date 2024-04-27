@@ -14,22 +14,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="images/favicon.png" type="">
     <title>Famms - Fashion HTML Template</title>
-    <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="home/css/bootstrap.css" />
-    <!-- font awesome style -->
-    <link href="home/css/font-awesome.min.css" rel="stylesheet" />
-    <!-- Custom styles for this template -->
-    <link href="home/css/style.css" rel="stylesheet" />
-    <!-- responsive style -->
-    <link href="home/css/responsive.css" rel="stylesheet" />
-    <!-- CSS -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-    <!-- Default theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
-    <!-- Semantic UI theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
-    <!-- Bootstrap theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+    @include('css_link')
 </head>
 
 <body>
@@ -52,14 +37,15 @@
         </p>
     </div>
     <!-- jQery -->
-    <script src="home/js/jquery-3.4.1.min.js"></script>
+    <script src="/home/js/jquery-3.4.1.min.js"></script>
     <!-- popper js -->
-    <script src="home/js/popper.min.js"></script>
+    <script src="/home/js/popper.min.js"></script>
     <!-- bootstrap js -->
-    <script src="home/js/bootstrap.js"></script>
+    <script src="/home/js/bootstrap.js"></script>
     <!-- custom js -->
-    <script src="home/js/custom.js"></script>
-    <script src="home/js/cart.js"></script>
+    {{-- <script src="home/js/custom.js"></script> --}}
+    <script src="/home/js/cart.js"></script>
+    <script src="/home/js/header.js"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 </body>
 

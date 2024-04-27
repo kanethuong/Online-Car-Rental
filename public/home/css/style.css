@@ -4,6 +4,21 @@
     box-sizing: border-box;
 }
 
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+    /* Ensures the cursor changes to a pointer */
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     color: #0c0c0c;
@@ -796,6 +811,11 @@ a:focus {
     right: 25%;
 }
 
+.required {
+    color: red;
+    font-weight: bold;
+}
+
 /* footer section*/
 .footer_section {
     background-color: #002c3e;
@@ -946,7 +966,7 @@ li.nav-item ul {
     margin-left: 10px;
     margin-top: 10px;
     box-shadow: 4px 4px 0px 0 #000;
-    width: 190px;
+    width: auto;
 }
 
 li.nav-item ul li {
@@ -1128,7 +1148,7 @@ form input[type="submit"]:focus {
     font-size: 15px;
     font-weight: 400;
 }
-
+/*
 http: //kute-themes.com/html/boutique/html/index.html
 https: //template.hasthemes.com/noraure/noraure/index.html
-https: //preview.hasthemes.com/xoss-preview/xoss/index.html
+https: //preview.hasthemes.com/xoss-preview/xoss/index.html */

@@ -91,49 +91,70 @@ $(document).ready(function () {
         e.preventDefault();
 
         var quantity = $(this).closest(".cartpage").find(".qty-input").val();
-        var product_id = $(this).closest(".cartpage").find(".product_id").val();
+        var row_id = $(this).closest(".cartpage").find(".row_id").val();
         var product_price = $(this)
             .closest(".cartpage")
             .find(".product_price")
             .val();
 
-        document.getElementById(product_id).innerHTML = (
+        var data = {
+            quantity: quantity,
+            row_id: row_id,
+        };
+
+        $.ajax({
+            url: "/update-cart",
+            type: "POST",
+            data: data,
+            success: function (response) {
+                $(".cart-grand-price-viewajax").text(response.newSubtotal);
+                cartload();
+                alertify.set("notifier", "position", "top-right");
+                alertify.success(response.status);
+            },
+        });
+
+        document.getElementById(row_id).innerHTML = (
             quantity * product_price
         ).toFixed(2);
     });
 });
 
 $(document).ready(function () {
-    $(".save-cart-btn").click(function (e) {
-        updateCart();
+    $(".clear_cart").click(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: "/clear-cart",
+            type: "POST",
+            success: function (response) {
+                cartload();
+                window.location.reload();
+                alertify.set("notifier", "position", "top-right");
+                alertify.success(response.status);
+            },
+        });
     });
 });
 
-function updateCart() {
-    e.preventDefault();
+$(document).ready(function () {
+    $(".delete_cart_data").click(function (e) {
+        e.preventDefault();
 
-    var map={};
+        var row_id = $(this).closest(".cartpage").find(".row_id").val();
 
-    $("#product-table tbody tr").each(function(){
-        var id = $(this).find(".product_id").val();
-        var quantity = $(this).find(".qty-input").val();
-        map[id] = quantity;
+        $.ajax({
+            url: "/remove-cart-item",
+            type: "POST",
+            data: {
+                row_id: row_id,
+            },
+            success: function (response) {
+                cartload();
+                alertify.set("notifier", "position", "top-right");
+                alertify.success(response.status);
+                window.location.reload();
+            },
+        });
     });
-
-    $.ajaxSetup({
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-    });
-
-    $.ajax({
-        url: "/update-cart",
-        type: "POST",
-        data: map,
-        success: function (response) {
-            window.location.reload();
-            alertify.set("notifier", "position", "top-right");
-            alertify.success(response.status);
-        },
-    });
-}
+});
