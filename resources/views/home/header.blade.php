@@ -6,7 +6,21 @@
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class=""> </span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                @if (request()->is('cart') || request()->is('delivery') || request()->is('order-detail/*'))
+                @else
+                    <form action="{{ route('home') }}" method="GET" id="search-form"
+                        class="form-inline d-flex align-items-center pt-3">
+                        {{-- @csrf --}}
+                        <input class="form-control flex-grow-1" type="text" placeholder="Search products"
+                            aria-label="Search" id="search_text" name="search_text">
+                        <button type="submit" class="input-group-text ml-2 mb-3 py-2" id="searchbtn">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                @endif
+
                 <ul class="navbar-nav">
                     <li class="nav-item active">
                         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
@@ -58,14 +72,7 @@
                             </span>
                         </a>
                     </li>
-
-                    <form class="form-inline">
-                        <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </button>
-                    </form>
                 </ul>
             </div>
         </nav>
-    </div>
 </header>

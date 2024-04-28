@@ -119,6 +119,27 @@ a:focus {
 }
 
 /*header section*/
+
+#search-form {
+    display: flex;
+    /* This will enable flexbox */
+    align-items: center;
+    /* This will vertically align the items in the middle */
+}
+
+.form-control {
+    flex-grow: 1;
+    /* This will allow the input to grow and fill the space */
+    margin-right: .5rem;
+    /* This adds a small space between the input and the button */
+}
+
+#searchbtn {
+    flex-shrink: 0;
+    /* This prevents the button from shrinking */
+}
+
+
 .hero_area {
     position: relative;
     /* min-height: 100vh; */
@@ -1148,6 +1169,7 @@ form input[type="submit"]:focus {
     font-size: 15px;
     font-weight: 400;
 }
+
 /*
 http: //kute-themes.com/html/boutique/html/index.html
 https: //template.hasthemes.com/noraure/noraure/index.html

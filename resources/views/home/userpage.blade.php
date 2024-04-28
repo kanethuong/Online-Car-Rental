@@ -13,29 +13,23 @@
     <meta name="author" content="" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="images/favicon.png" type="">
-    <title>Famms - Fashion HTML Template</title>
+    <title>KANE - Online Grocery Store</title>
     @include('css_link')
 </head>
 
 <body>
     <div class="hero_area">
-        @include('home.header');
+        @include('home.header')
     </div>
 
     <!-- product section -->
-    @include('home.product');
+    @include('home.product')
     <!-- end product section -->
 
     <!-- footer start -->
-    @include('home.footer');
+    @include('home.footer')
     <!-- footer end -->
-    <div class="cpy_">
-        <p class="mx-auto">© 2021 All Rights Reserved By <a href="https://html.design/">Free Html Templates</a><br>
 
-            Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-
-        </p>
-    </div>
     <!-- jQery -->
     <script src="/home/js/jquery-3.4.1.min.js"></script>
     <!-- popper js -->

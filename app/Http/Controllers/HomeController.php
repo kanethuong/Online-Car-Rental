@@ -12,7 +12,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $product = Product::paginate(6);
+        if (request()->has('search_text')) {
+            $product = Product::where('product_name', 'like', '%' . request('search_text') . '%')->paginate(6);
+        } else {
+            $product = Product::paginate(6);
+        }
         $categories = Category::all();
         $catSubcatMap = [];
         foreach ($categories as $category) {

@@ -13,7 +13,7 @@
     <meta name="author" content="" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="/images/favicon.png" type="">
-    <title>Famms - Fashion HTML Template</title>
+    <title>KANE - Online Grocery Store</title>
     @include('css_link')
 </head>
 
