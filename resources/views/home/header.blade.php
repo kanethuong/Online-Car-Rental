@@ -22,8 +22,8 @@
                 @endif
 
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
+                        <a class="nav-link" href="/">Home</a>
                     </li>
 
                     @if (isset($categories))
@@ -63,7 +63,7 @@
                         </li>
                     @endif
 
-                    <li class="nav-item">
+                    <li class="nav-item {{ Request::is('cart') ? 'active' : '' }}">
                         <a href="{{ url('cart') }}" class="nav-link">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                             Cart

@@ -10,8 +10,18 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Order;
 use App\Models\OrderItem;
 
+/**
+ * Class DeliveryController
+ *
+ * This class handles the delivery functionality of the application.
+ */
 class DeliveryController extends Controller
 {
+    /**
+     * Display the delivery page with the cart data.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function index()
     {
         $cart_data = Cart::content()->toArray();
@@ -19,8 +29,15 @@ class DeliveryController extends Controller
             ->with('cart_data', $cart_data);
     }
 
+    /**
+     * Place an order with the given request data.
+     *
+     * @param \Illuminate\Http\Request $request The request object containing the order details.
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function placeOrder(Request $request)
     {
+        // Validate the request data
         $validated = $request->validate([
             'name' => 'required|regex:/^[a-zA-Z\s]+$/',  // Only letters and spaces
             'street' => 'required|string|max:255',  // Allowing more characters for street
@@ -31,7 +48,8 @@ class DeliveryController extends Controller
         ]);
 
         $cart_data = Cart::content()->toArray();
-        //check quantity of each product in cart
+
+        // Check quantity of each product in cart
         foreach ($cart_data as $cart_item) {
             $product = Product::find($cart_item['id']);
             if ($cart_item['qty'] > $product->in_stock) {
@@ -39,6 +57,7 @@ class DeliveryController extends Controller
             }
         }
 
+        // Create a new order
         $order = new Order();
         $order->name = $request->name;
         $order->street = $request->street;
@@ -48,10 +67,13 @@ class DeliveryController extends Controller
         $order->email = $request->email;
         $order->total = Cart::subtotal(2, '.', '');
         $saveOrder = $order->save();
+
+        // Handle order creation failure
         if (!$saveOrder) {
             return redirect()->route('delivery')->with('error', 'Failed to place order. Please try again.');
         }
 
+        // Create order items and update product stock
         foreach ($cart_data as $cart_item) {
             $orderItem = new OrderItem();
             $orderItem->quantity = $cart_item['qty'];
@@ -65,11 +87,14 @@ class DeliveryController extends Controller
             $product->in_stock -= $cart_item['qty'];
             $saveProduct = $product->save();
             $saveOrderItem = $orderItem->save();
+
+            // Handle order item or product update failure
             if (!$saveProduct || !$saveOrderItem) {
                 return redirect()->route('delivery')->with('error', 'Failed to place order. Please try again.');
             }
         }
 
+        // Clear the cart and redirect to order detail page
         Cart::destroy();
         return redirect()->route('order-detail', $order->order_id);
     }

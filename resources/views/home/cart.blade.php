@@ -45,14 +45,12 @@
                                         @foreach ($cart_data as $data)
                                             <tr class="cartpage">
                                                 <td class="cart-image">
-                                                    <a class="entry-thumbnail" href="javascript:void(0)">
-                                                        <img src="{{ $data['options']['image'] }}" width="70px"
-                                                            alt="">
-                                                    </a>
+                                                    <img src="{{ $data['options']['image'] }}" width="70px"
+                                                        alt="">
                                                 </td>
                                                 <td class="cart-product-name-info">
                                                     <h4 class='cart-product-description'>
-                                                        <a href="javascript:void(0)">{{ $data['name'] }}</a>
+                                                        {{ $data['name'] }}
                                                     </h4>
                                                 </td>
                                                 <td class="cart-product-sub-total">
@@ -69,7 +67,7 @@
                                                             <span class="input-group-text">-</span>
                                                         </div>
                                                         <input type="text" readonly="readonly"
-                                                            class="qty-input form-control" maxlength="2"
+                                                            class="qty-input form-control m-0" maxlength="2"
                                                             max="{{ $data['qty'] }}" value="{{ $data['qty'] }}">
                                                         <div class="input-group-append increment-btn changeQuantity"
                                                             style="cursor: pointer">
