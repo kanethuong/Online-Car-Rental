@@ -76,8 +76,8 @@
                                                     </div>
                                                 </td>
                                                 <td class="cart-product-grand-total">
-                                                    <span class="cart-grand-total-price"
-                                                        id="{{ $data['rowId'] }}">${{ number_format($data['qty'] * $data['price'], 2) }}</span>
+                                                    $<span class="cart-grand-total-price"
+                                                        id="{{ $data['rowId'] }}">{{ number_format($data['qty'] * $data['price'], 2) }}</span>
                                                 </td>
                                                 <td style="font-size: 20px;">
                                                     <button type="button" class="delete_cart_data btn btn-danger">
