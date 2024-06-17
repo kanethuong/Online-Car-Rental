@@ -13,7 +13,7 @@
     <meta name="author" content="" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="images/favicon.png" type="">
-    <title>KANE - Online Grocery Store</title>
+    <title>KANE - Online Car Rental</title>
     @include('css_link')
 </head>
 
@@ -22,8 +22,8 @@
         @include('home.header')
     </div>
 
-    <!-- product section -->
-    @include('home.product')
+    <!-- car section -->
+    @include('home.car')
     <!-- end product section -->
 
     <!-- footer start -->
@@ -37,8 +37,8 @@
     <!-- bootstrap js -->
     <script src="/home/js/bootstrap.js"></script>
     <!-- custom js -->
-    {{-- <script src="home/js/custom.js"></script> --}}
-    <script src="/home/js/cart.js"></script>
+    <script src="/home/js/reservation.js"></script>
+    <script src="/home/js/search.js"></script>
     <script src="/home/js/header.js"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 </body>

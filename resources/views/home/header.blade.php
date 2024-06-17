@@ -8,17 +8,24 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                @if (request()->is('cart') || request()->is('delivery') || request()->is('order-detail/*'))
-                @else
-                    <form action="{{ route('home') }}" method="GET" id="search-form"
-                        class="form-inline d-flex align-items-center pt-3">
-                        {{-- @csrf --}}
-                        <input class="form-control flex-grow-1" type="text" placeholder="Search products"
-                            aria-label="Search" id="search_text" name="search_text">
-                        <button type="submit" class="input-group-text ml-2 mb-3 py-2" id="searchbtn">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </form>
+                @if (!request()->is('reservation') && !request()->is('place-order'))
+                    <div style="position: relative;">
+                        <form action="{{ route('home') }}" method="GET" id="search-form"
+                            class="form-inline d-flex align-items-center pt-3">
+                            <div class="input-group">
+                                <input class="form-control flex-grow-1" type="text" placeholder="Search cars"
+                                    aria-label="Search" id="search_text" name="search_text">
+                                <div class="input-group-append">
+                                    <button type="submit" class="input-group-text" id="searchbtn">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="suggestions-dropdown mt-2" id="suggestions">
+                            <ul id="suggestions-list"></ul>
+                        </div>
+                    </div>
                 @endif
 
                 <ul class="navbar-nav">
@@ -26,50 +33,63 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
 
-                    @if (isset($categories))
+                    @if (!request()->is('reservation') && !request()->is('place-order'))
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Category
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-                                @foreach ($categories as $category)
-                                    <li class="dropdown-submenu">
-                                        <a class="dropdown-item dropdown-toggle" href="#"
-                                            id="dropdownMenu-{{ $category->category_id }}" role="button"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            {{ $category->category_name }}
-                                        </a>
-                                        <ul class="dropdown-menu"
-                                            aria-labelledby="dropdownMenu-{{ $category->category_id }}">
-                                            <li>
-                                                <a class="dropdown-item"
-                                                    href="{{ url('category/' . $category->category_id) }}">
-                                                    All {{ $category->category_name }}
-                                                </a>
-                                            </li>
-                                            @foreach ($catSubcatMap[$category->category_id] as $subCategory)
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                        href="{{ url('sub-category/' . $subCategory->sub_category_id) }}">
-                                                        {{ $subCategory->sub_category_name }}
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                @endforeach
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="dropdownMenu-type"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        Type
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu-type">
+                                        <li>
+                                            <a class="dropdown-item" href="{{ url('category/type/Sedan') }}">
+                                                Sedan
+                                            </a>
+
+                                            <a class="dropdown-item" href="{{ url('category/type/Wagon') }}">
+                                                Wagon
+                                            </a>
+
+                                            <a class="dropdown-item" href="{{ url('category/type/SUV') }}">
+                                                SUV
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <a class="dropdown-item dropdown-toggle" href="#" id="dropdownMenu-brand"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        Brand
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu-brand">
+                                        <li>
+                                            <a class="dropdown-item" href="{{ url('category/brand/Ford') }}">
+                                                Ford
+                                            </a>
+
+                                            <a class="dropdown-item" href="{{ url('category/brand/Mazda') }}">
+                                                Mazda
+                                            </a>
+
+                                            <a class="dropdown-item" href="{{ url('category/brand/BMW') }}">
+                                                BMW
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                     @endif
 
-                    <li class="nav-item {{ Request::is('cart') ? 'active' : '' }}">
-                        <a href="{{ url('cart') }}" class="nav-link">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                            Cart
-                            <span class="basket-item-count">
-                                <span class="badge badge-pill badge-danger"> 0 </span>
-                            </span>
+                    <li class="nav-item {{ Request::is('reservation') ? 'active' : '' }}">
+                        <a href="{{ url('reservation') }}" class="nav-link">
+                            Reservation
                         </a>
                     </li>
                 </ul>

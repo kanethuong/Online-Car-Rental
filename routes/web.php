@@ -7,29 +7,22 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReservationController;
 
-Route::get('/', [HomeController::class, 'index']) -> name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/redirect', [HomeController::class, 'redirect']);
+Route::get('/reservation', [ReservationController::class, 'index']);
 
-Route::post('/add-cart', [CartController::class, 'addCart']);
+Route::post('/add-reservation', [ReservationController::class, 'addReservation']);
 
-Route::get('/load-cart-data', [CartController::class, 'cartLoad']);
+Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('place-order');
 
-Route::get('/cart', [CartController::class, 'index']);
+Route::get('/order-confirmation', [OrderController::class, 'orderConfirmation'])->name('order-confirmation');
 
-Route::post('/update-cart', [CartController::class, 'updateCart']);
+Route::get('/cancel-order', [OrderController::class, 'cancelOrder']);
 
-Route::post('/clear-cart', [CartController::class, 'clearCart']);
+Route::get('/search-suggestions', [HomeController::class, 'searchSuggestions']);
 
-Route::post('/remove-cart-item', [CartController::class, 'removeCartItem']);
+Route::get('/category/type/{id}', [CategoryController::class, 'getCarsByType']);
 
-Route::get('/category/{id}', [CategoryController::class, 'index']);
-
-Route::get('/sub-category/{id}', [SubCategoryController::class, 'index']);
-
-Route::get('/delivery', [DeliveryController::class, 'index'])->name('delivery');
-
-Route::post('/place-order', [DeliveryController::class, 'placeOrder']);
-
-Route::get('/order-detail/{orderId}', [OrderController::class, 'orderDetail'])->name('order-detail');
+Route::get('/category/brand/{id}', [CategoryController::class, 'getCarsByBrand']);

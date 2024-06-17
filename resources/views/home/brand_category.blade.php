@@ -13,7 +13,7 @@
     <meta name="author" content="" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="/images/favicon.png" type="">
-    <title>KANE - Online Grocery Store</title>
+    <title>KANE - Online Car Rental</title>
     @include('css_link')
 </head>
 
@@ -26,53 +26,45 @@
         <div class="container">
             <div class="heading_container heading_center">
                 <h2>
-                    Products of <span>{{ $subCategoryName }}</span>
+                    <span>{{ $cars[0]['brand'] }}</span>
                 </h2>
             </div>
             <div class="row">
-                @foreach ($product as $products)
+                @foreach ($cars as $car)
                     <div class="col-sm-6 col-md-4 col-lg-4">
-                        <div class="box product_data">
+                        <div class="box car_data">
                             <div class="option_container">
-                                @if ($products->in_stock > 0)
+                                @if ($car['availability'] == 'Yes')
                                     <div class="options">
-                                        <input type="submit" value="Add To Cart"
-                                            class="btn btn-danger add-to-cart-btn">
-                                        <input type="hidden" class="product_id" value="{{ $products->product_id }}">
+                                        <input type="submit" value="Rent" class="btn btn-danger rent-btn">
+                                        <input type="hidden" class="car_id" value="{{ $car['car_id'] }}">
                                     </div>
                                 @else
                                     <div class="options">
-                                        <input type="submit" value="Out of Stock"
-                                            class="btn btn-secondary add-to-cart-btn" disabled>
+                                        <input type="submit" value="Unavailable for renting" class="btn btn-secondary"
+                                            disabled>
                                     </div>
                                 @endif
                             </div>
                             <div class="img-box">
-                                <img src="{{ $products->image }}" alt="">
+                                <img src="{{ $car['image'] }}" alt="">
                             </div>
                             <div class="detail-box">
                                 <h5>
-                                    {{ $products->product_name }}
+                                    {{ $car['brand'] }} {{ $car['model'] }}
                                 </h5>
                                 <h6>
-                                    ${{ $products->unit_price }}/{{ $products->unit_quantity }}
+                                    ${{ $car['price_per_day'] }}/day
                                 </h6>
-                                @if ($products->in_stock > 0)
-                                    <h6>
-                                        In stock: {{ $products->in_stock }}
-                                    </h6>
-                                @else
-                                    <h6 style="color:red">
-                                        Out of Stock
-                                    </h6>
-                                @endif
+                                <h6>
+                                    Availabity:
+                                    <span
+                                        style="color: {{ $car['availability'] == 'No' ? 'red' : '' }}">{{ $car['availability'] }}</span>
+                                </h6>
                             </div>
                         </div>
                     </div>
                 @endforeach
-                <span class="pt-2">
-                    {!! $product->withQueryString()->links('pagination::bootstrap-5') !!}
-                </span>
             </div>
         </div>
     </section>
@@ -87,9 +79,8 @@
     <script src="/home/js/popper.min.js"></script>
     <!-- bootstrap js -->
     <script src="/home/js/bootstrap.js"></script>
-    <!-- custom js -->
-    {{-- <script src="home/js/custom.js"></script> --}}
-    <script src="/home/js/cart.js"></script>
+    <script src="/home/js/reservation.js"></script>
+    <script src="/home/js/search.js"></script>
     <script src="/home/js/header.js"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 </body>

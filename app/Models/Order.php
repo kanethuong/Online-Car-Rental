@@ -12,18 +12,10 @@ class Order extends Model
     protected $primaryKey = 'order_id';
     public $timestamps = false;
     protected $fillable = [
-        'order_id',
-        'name',
-        'street',
-        'city',
-        'state',
-        'mobile',
-        'email',
-        'total'
+        'user_email',
+        'rent_start_date',
+        'rent_end_date',
+        'price',
+        'status'
     ];
-
-    public function orderItems()
-    {
-        return $this->hasMany(OrderItem::class, 'order_id', 'order_id');
-    }
 }

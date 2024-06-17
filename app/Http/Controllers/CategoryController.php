@@ -9,30 +9,35 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display all products of a category.
-     *
-     * @param  int  $id  The ID of the category.
-     * @return \Illuminate\View\View
-     */
-    public function index($id)
+    protected $jsonData;
+    public function __construct()
     {
-        // Retrieve all products of the specified category
-        $product = Product::where('category_id', $id)->paginate(6);
+        $this->jsonData = json_decode(file_get_contents(storage_path() . "/cars.json"), true);
+    }
 
-        // Retrieve the name of the category
-        $categoryName = Category::where('category_id', $id)->first()->category_name;
-
-        // Retrieve all categories
-        $categories = Category::all();
-
-        // Create a map of category IDs to their subcategories
-        $catSubcatMap = [];
-        foreach ($categories as $category) {
-            $catSubcatMap[$category->category_id] = $category->subcategories;
+    public function getCarsByType($id)
+    {
+        $results = [];
+        $cars = $this->jsonData['cars'];
+        foreach ($cars as $car) {
+            if ($car['type'] == $id) {
+                $results[] = $car;
+            }
         }
+        return view('home.type_category')
+            ->with('cars', $results);
+    }
 
-        // Render the category view with the necessary data
-        return view('home.category', compact('product', 'categoryName', 'categories', 'catSubcatMap'));
+    public function getCarsByBrand($id)
+    {
+        $results = [];
+        $cars = $this->jsonData['cars'];
+        foreach ($cars as $car) {
+            if ($car['brand'] == $id) {
+                $results[] = $car;
+            }
+        }
+        return view('home.brand_category')
+            ->with('cars', $results);
     }
 }
